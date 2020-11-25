@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/RestrictionsLimitPopup/config/applicationhost.config
+/.vs/RestrictionsLimitPopup/v16/.suo
+/.vs/RestrictionsLimitPopup/v16
