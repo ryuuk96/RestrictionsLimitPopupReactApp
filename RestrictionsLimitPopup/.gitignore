@@ -232,5 +232,5 @@ _Pvt_Extensions
 .fake/
 
 # Application secrets
-ClientApp/utilities
+ClientApp/utilities/appConfig.json
 ClientApp/node_modules
