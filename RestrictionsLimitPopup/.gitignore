@@ -233,4 +233,5 @@ _Pvt_Extensions
 
 # Application secrets
 ClientApp/utilities/appConfig.json
+ClientApp/.env
 ClientApp/node_modules

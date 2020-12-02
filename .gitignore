@@ -9,3 +9,9 @@
 /RestrictionsLimitPopup/ClientApp/dummy-package.json
 /.vs/RestrictionsLimitPopup/DesignTimeBuild
 /RestrictionsLimitPopup/ClientApp/application-keys
+/RestrictionsLimitPopup/ClientApp-React/.next
+/RestrictionsLimitPopup/ClientApp-Shopify-React/.next
+/RestrictionsLimitPopup/ClientApp-Shopify-React/node_modules
+/RestrictionsLimitPopup/ClientApp-Shopify-React/shopify_tutorial_react
+/RestrictionsLimitPopup/ClientApp-Shopify-React/shop_auth_url.txt
+/RestrictionsLimitPopup/ClientApp-Shopify-React/.env
