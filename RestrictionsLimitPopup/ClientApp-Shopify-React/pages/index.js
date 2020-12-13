@@ -1,7 +1,14 @@
-const Index = () => (
-    <div>
-      <p>Sample app using React and Next.js</p>
-    </div>
-  );
-  
-  export default Index;
+import React, { Component } from 'react'
+import ApplicationLayout from '../components/application-layout'
+
+class Index extends Component {
+  render() {
+    return (
+      <div>
+        <ApplicationLayout />
+      </div>
+    )
+  }
+}
+
+export default Index
