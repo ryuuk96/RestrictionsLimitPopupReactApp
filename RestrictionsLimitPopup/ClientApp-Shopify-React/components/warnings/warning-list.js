@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card, DataTable, EmptyState, Link, Page } from '@shopify/polaris';
-import { WarningStatus, WarningType } from '../models/ConstUtility';
+import { WarningStatus, WarningCategory } from '../../models/ConstUtility';
 export default function WarningList() {
   const [warningRows, setWarningRows] = useState(
     [
@@ -9,7 +9,7 @@ export default function WarningList() {
           First Warning
         </Link>,
         `${(new Date()).getDate()} / ${(new Date()).getMonth()} / ${(new Date()).getFullYear()}`,
-        WarningType.AgeRestriction,
+        WarningCategory.AgeRestriction,
         WarningStatus.Active,
       ],
       [
@@ -17,7 +17,7 @@ export default function WarningList() {
           Second Warning
         </Link>,
         `${(new Date()).getDate()} / ${(new Date()).getMonth()} / ${(new Date()).getFullYear()}`,
-        WarningType.OutOfStock,
+        WarningCategory.OutOfStock,
         WarningStatus.Active,
       ],
       [
@@ -25,7 +25,7 @@ export default function WarningList() {
           Third Warning
         </Link>,
         `${(new Date()).getDate()} / ${(new Date()).getMonth()} / ${(new Date()).getFullYear()}`,
-        WarningType.ProductElements,
+        WarningCategory.ProductElements,
         WarningStatus.Inactive,
       ],
       [
@@ -33,7 +33,7 @@ export default function WarningList() {
           Fourth Warning
         </Link>,
         `${(new Date()).getDate()} / ${(new Date()).getMonth()} / ${(new Date()).getFullYear()}`,
-        WarningType.ProductUnit,
+        WarningCategory.ProductUnit,
         WarningStatus.Inactive,
       ]
     ]
@@ -51,7 +51,8 @@ export default function WarningList() {
     <div>
       {warningsPresent ? (
         <Page title="Created Warnings"
-          primaryAction={{ content: "Add warning", onAction: {addWarning} }}>
+            fullWidth
+            primaryAction={{ content: "Add warning", onAction: {addWarning} }}>
           <Card>
             <DataTable
               columnContentTypes={['text', 'text', 'text', 'text']}

@@ -7,6 +7,8 @@ import { AppProvider } from '@shopify/polaris';
 import '@shopify/polaris/dist/styles.css';
 import translations from '@shopify/polaris/locales/en.json';
 
+// import { Provider } from "@shopify/app-bridge-react";
+
 /**
  * This will be used to setup the Polaris accross the application
  * And also to setup translations

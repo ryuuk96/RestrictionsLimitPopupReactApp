@@ -1,9 +1,8 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { AppProvider, Avatar, ActionList, Card, TextField, TextContainer, ContextualSaveBar, FormLayout, Modal, Frame, Layout, Loading, Navigation, Page, SkeletonBodyText, SkeletonDisplayText, SkeletonPage, Toast, TopBar } from '@shopify/polaris';
-import { ArrowLeftMinor, ConversationMinor, HomeMajor, OrdersMajor } from '@shopify/polaris-icons';
-import WarningList from '../pages/warning-list';
-import AppHeader from './header/AppHeader';
-import AppNavigation from './navigation/AppNavigation';
+import { ActionList, Card, TextField, TextContainer, ContextualSaveBar, FormLayout, Modal, Frame, Layout, Loading, SkeletonBodyText, SkeletonDisplayText, SkeletonPage, Toast, TopBar } from '@shopify/polaris';
+import AppNavigation from '../components/navigation/AppNavigation';
+import WarningDetail from '../pages/warning-detail';
+import AppHeader from '../components/header/AppHeader';
 
 export default function ApplicationLayout() {
     const defaultState = useRef({
@@ -15,7 +14,7 @@ export default function ApplicationLayout() {
     const [toastActive, setToastActive] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isDirty, setIsDirty] = useState(false);
-    const [searchActive, setSearchActive] = useState(false);
+    const [, setSearchActive] = useState(false);
     const [searchValue, setSearchValue] = useState('');
     const [userMenuActive, setUserMenuActive] = useState(false);
     const [mobileNavigationActive, setMobileNavigationActive] = useState(false);
@@ -53,18 +52,6 @@ export default function ApplicationLayout() {
         setToastActive(true);
         setStoreName(defaultState.current.nameFieldValue);
     }, [emailFieldValue, nameFieldValue]);
-    const handleNameFieldChange = useCallback((value) => {
-        setNameFieldValue(value);
-        value && setIsDirty(true);
-    }, []);
-    const handleEmailFieldChange = useCallback((value) => {
-        setEmailFieldValue(value);
-        value && setIsDirty(true);
-    }, []);
-    const handleSearchResultsDismiss = useCallback(() => {
-        setSearchActive(false);
-        setSearchValue('');
-    }, []);
     const handleSearchFieldChange = useCallback((value) => {
         setSearchValue(value);
         setSearchActive(value.length > 0);
@@ -82,10 +69,6 @@ export default function ApplicationLayout() {
             setMobileNavigationActive(
                 (mobileNavigationActive) => !mobileNavigationActive,
             ),
-        [],
-    );
-    const toggleIsLoading = useCallback(
-        () => setIsLoading((isLoading) => !isLoading),
         [],
     );
     const toggleModalActive = useCallback(
@@ -115,35 +98,8 @@ export default function ApplicationLayout() {
         />
     ) : null;
 
-    const userMenuMarkup = (
-        <TopBar.UserMenu
-            actions={userMenuActions}
-            name="Dharma"
-            detail={storeName}
-            initials="D"
-            open={userMenuActive}
-            onToggle={toggleUserMenuActive}
-        />
-    );
 
-    const searchResultsMarkup = (
-        <Card>
-            <ActionList
-                items={[
-                    { content: 'Shopify help center' },
-                    { content: 'Community forums' },
-                ]}
-            />
-        </Card>
-    );
 
-    const searchFieldMarkup = (
-        <TopBar.SearchField
-            onChange={handleSearchFieldChange}
-            value={searchValue}
-            placeholder="Search"
-        />
-    );
 
     const topBarMarkup = (
         <AppHeader />
@@ -155,12 +111,10 @@ export default function ApplicationLayout() {
 
     const loadingMarkup = isLoading ? <Loading /> : null;
 
-    const skipToContentTarget = (
-        <a id="SkipToContentTarget" ref={skipToContentRef} tabIndex={-1} />
-    );
 
     const actualPageMarkup = (
-        <WarningList />
+        // <WarningList />
+        <WarningDetail />
     );
 
     const loadingPageMarkup = (
@@ -208,22 +162,6 @@ export default function ApplicationLayout() {
         </Modal>
     );
 
-    const theme = {
-        colors: {
-            topBar: {
-                background: '#225062',
-            },
-        },
-        logo: {
-            width: 124,
-            topBarSource:
-                'https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-color.svg?6215648040070010999',
-            contextualSaveBarSource:
-                'https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-gray.svg?6215648040070010999',
-            url: 'http://jadedpixel.com',
-            accessibilityLabel: 'Jaded Pixel',
-        },
-    };
 
     return (
         <div style={{ height: '500px' }}>

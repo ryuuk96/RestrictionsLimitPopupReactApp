@@ -43,7 +43,7 @@ const navigateToAboutUs = () => ({});
                 onClick: {navigateToHelp}
             },
             {
-                label: 'Templates',
+                label: 'About us',
                 icon: CircleInformationMajor,
                 onClick: {navigateToAboutUs}
             }
