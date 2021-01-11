@@ -41,7 +41,7 @@ export default function WarningList() {
   const [warningsPresent, setWarningsPresent] = useState(false)
 
   const addWarning = () => {
-    console.log('Warning is to be added');
+    console.log('warning-list.js => Warning is to be added');
     setWarningsPresent(true);
   }
 

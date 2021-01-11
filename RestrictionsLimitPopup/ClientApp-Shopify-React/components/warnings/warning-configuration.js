@@ -36,7 +36,7 @@ function WarningConfigurationComponent(props) {
 
     const toggleStatus = useCallback(
         (values) => {
-            console.log(`Status for warning is toggled to: ${values}`);
+            console.log(`warning-config.js => Status for warning is toggled to: ${values}`);
             setStatus(values);
         },
         [],
@@ -118,20 +118,21 @@ function WarningConfigurationComponent(props) {
                 <TextContainer>
                     <Heading >Selected dates: </Heading>  {selectedDateString}
                 </TextContainer>
-                <br />
+                {/* <br /> */}
                 <Checkbox
                     label="No end date"
                     checked={disableEndDate}
                     onChange={toggleDisableEndDate} />
-                <br />
-                <DatePicker
-                    month={month}
-                    year={year}
-                    onChange={setSelectedDates}
-                    onMonthChange={handleMonthChange}
-                    selected={selectedDates}
-                    disableDatesBefore={previousDate}
-                    allowRange={!disableEndDate} />
+                <div style={{ marginTop: '0.5rem' }}>
+                    <DatePicker
+                        month={month}
+                        year={year}
+                        onChange={setSelectedDates}
+                        onMonthChange={handleMonthChange}
+                        selected={selectedDates}
+                        disableDatesBefore={previousDate}
+                        allowRange={!disableEndDate} />
+                </div>
             </div>
         </div>
     );
@@ -211,9 +212,9 @@ function WarningConfigurationComponent(props) {
                     onChange={handleFrequency} />
             </Stack>
 
-            <Seperator />
+            {/* <Seperator /> */}
 
-            <TextContainer>
+            {/* <TextContainer>
                 <Heading>
                     Restriction condition
                 </Heading>
@@ -234,7 +235,7 @@ function WarningConfigurationComponent(props) {
                     id="confirmCheckout"
                     name="confirmCheckout_trigger"
                     onChange={handleAllowCheckout} />
-            </Stack>
+            </Stack> */}
 
             <Seperator />
 

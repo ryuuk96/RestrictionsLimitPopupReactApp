@@ -167,7 +167,7 @@ export default function ApplicationLayout() {
         <div style={{ height: '500px' }}>
             <Frame
                 topBar={topBarMarkup}
-                navigation={navigationMarkup}
+                // navigation={navigationMarkup}
                 showMobileNavigation={mobileNavigationActive}
                 onNavigationDismiss={toggleMobileNavigationActive}
                 skipToContentTarget={skipToContentRef.current} >

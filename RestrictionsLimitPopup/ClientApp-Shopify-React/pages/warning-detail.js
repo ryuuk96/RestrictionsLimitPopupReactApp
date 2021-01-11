@@ -8,33 +8,33 @@ import WarningDesignComponent from '../components/warnings/design/warning-design
 export default function WarningDetail() {
 
     const goToWarnings = () => {
-        console.log(`Go to warnings is clicked`);
+        console.log(`warning-detail.js => Go to warnings is clicked`);
     };
     const getWarningStatus = () => {
         return "success";
     };
     const showPrevWarning = () => {
-        console.log(`showPrevWarning is clicked`);
+        console.log(`warning-detail.js => showPrevWarning is clicked`);
     };
     const showNextWarning = () => {
-        console.log(`showNextWarning is clicked`);
+        console.log(`warning-detail.js => showNextWarning is clicked`);
     };
     const duplicateWarning = () => {
-        console.log(`duplicateWarning is clicked`);
+        console.log(`warning-detail.js => duplicateWarning is clicked`);
     };
     const deleteWarning = () => {
-        console.log(`deleteWarning is clicked`);
+        console.log(`warning-detail.js => deleteWarning is clicked`);
     };
     const toggleActiveInactiveStatus = () => {
-        console.log(`toggleActiveInactiveStatus is clicked`);
+        console.log(`warning-detail.js => toggleActiveInactiveStatus is clicked`);
     };
 
     const warningInfoTriggered = (values) => {
-        console.log(`Warning Details are of the follow values: ${values}`);
+        console.log(`warning-detail.js => Warning Details are of the follow values: ${values}`);
     };
 
     const warningConfigurationTriggered = (values) => {
-        console.log(`Warning configuration are of the follow values: ${values}`);
+        console.log(`warning-detail.js => Warning configuration are of the follow values: ${values}`);
     };
 
     return (
