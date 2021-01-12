@@ -43,10 +43,18 @@ function WarningDesignComponent() {
             setLayoutSelectedIndex(layoutIndex);
 
             setMainContainerStyle(warningDesignLayouts[layoutIndex].containerStyle);
+            setMainContainerBgColorHSB(warningDesignLayouts[layoutIndex].containerStyle.backgroundColorHSB);
+            setmainContainerBorderRadius(warningDesignLayouts[layoutIndex].containerStyle.borderRadius.replace('px', ''));
+
             setButtonContainerStyle(warningDesignLayouts[layoutIndex].buttonContainerStyle);
             setFirstButtonStyle(warningDesignLayouts[layoutIndex].firstButtonStyle);
             setSecondButtonStyle(warningDesignLayouts[layoutIndex].secondButtonStyle);
             setWarningMessageStyle(warningDesignLayouts[layoutIndex].warningMessageStyle);
+
+            setFirstButtonBgColorHSB(warningDesignLayouts[layoutIndex].firstButtonStyle.backgroundColorHSB);
+            setFirstButtonFontColorHSB(warningDesignLayouts[layoutIndex].firstButtonStyle.colorHSB);
+            setSecondButtonBgColorHSB(warningDesignLayouts[layoutIndex].secondButtonStyle.backgroundColorHSB);
+            setSecondButtonFontColorHSB(warningDesignLayouts[layoutIndex].secondButtonStyle.colorHSB);
 
             setButtonsWidth(warningDesignLayouts[layoutIndex].firstButtonStyle.width.replace('%', ''));
             setButtonPaddingYAxis(warningDesignLayouts[layoutIndex].firstButtonStyle.paddingTop.replace('px', ''));
@@ -67,13 +75,20 @@ function WarningDesignComponent() {
             setImageStyle(warningDesignLayouts[layoutIndex].image_style);
             setImageContainerStyle(warningDesignLayouts[layoutIndex].imageContainerStyle);
 
+
             setImageContainerButtonsWidth(warningDesignLayouts[layoutIndex].imageFirstButtonStyle.width.replace('%', ''));
             setImageContainerButtonsPaddingYAxis(warningDesignLayouts[layoutIndex].imageFirstButtonStyle.paddingTop.replace('px', ''));
             setImageContainerButtonsBorderRadius(warningDesignLayouts[layoutIndex].imageFirstButtonStyle.borderRadius.replace('px', ''));
             setImageContainerButtonContainerMarginBottom(warningDesignLayouts[layoutIndex].imageButtonContainerStyle.marginBottom.replace('px', ''));
             setImageContainerButtonsGap(warningDesignLayouts[layoutIndex].imageButtonContainerStyle.columnGap.replace('px', ''));
 
+            setImageContainerFirstButtonBgColorHSB(warningDesignLayouts[layoutIndex].imageFirstButtonStyle.backgroundColorHSB);
+            setImageContainerFirstButtonFontColorHSB(warningDesignLayouts[layoutIndex].imageFirstButtonStyle.colorHSB);
+            setImageContainerSecondButtonBgColorHSB(warningDesignLayouts[layoutIndex].imageSecondButtonStyle.backgroundColorHSB);
+            setImageContainerSecondButtonFontColorHSB(warningDesignLayouts[layoutIndex].imageSecondButtonStyle.colorHSB);
+
             setHeaderStyle(warningDesignLayouts[layoutIndex].headerStyle);
+            setHeaderBackgroundColorHSB(warningDesignLayouts[layoutIndex].headerStyle.backgroundColorHSB);
             setHeaderImgStyle(warningDesignLayouts[layoutIndex].headerImgStyle);
             setHeaderTextContainerStyle(warningDesignLayouts[layoutIndex].headerTextContainerStyle);
 
@@ -438,7 +453,6 @@ function WarningDesignComponent() {
     //#endregion
 
 
-
     //#region Header Style
     const [headerStyle, setHeaderStyle] = useState(warningDesignLayouts[layoutSelectedIndex].headerStyle);
     const [headerBackgroundColorHSB, setHeaderBackgroundColorHSB] = useState(warningDesignLayouts[layoutSelectedIndex].headerStyle.backgroundColorHSB);
@@ -651,8 +665,8 @@ function WarningDesignComponent() {
         title="Choose what the button must do"
         choices={getButtonActions()}
         selected={firstButtonActionSelected}
-        onChange={handleFirstButtonActionsChange} />
-    );
+        onChange={handleFirstButtonActionsChange} />);
+
     const handleSecondButtonActionsChange = useCallback(
         (value) => {
             var actions = getButtonActions();
@@ -669,8 +683,7 @@ function WarningDesignComponent() {
         title="Choose what the button must do"
         choices={getButtonActions()}
         selected={secondButtonActionSelected}
-        onChange={handleSecondButtonActionsChange} />
-    );
+        onChange={handleSecondButtonActionsChange} />);
 
 
     const mainContainerMarkup = (<Card.Section title="Main container">
@@ -774,7 +787,7 @@ function WarningDesignComponent() {
         </Stack>
     </Card.Section>);
 
-    const firstButtonMarkup = (<Card.Section title="First Button">
+    const firstButtonMarkup = (<Card.Section title={`${layoutSelectedIndex !== 1 ? 'First' : 'Selected'} Button`}>
         <Stack vertical={true}>
             <Stack spacing={'loose'} distribution="fillEvenly">
                 <Stack vertical={false} alignment={'center'}>
@@ -817,7 +830,7 @@ function WarningDesignComponent() {
         </Stack>
     </Card.Section>);
 
-    const secondButtonMarkup = (<Card.Section title="Second Button">
+    const secondButtonMarkup = layoutSelectedIndex !== 1 && (<Card.Section title="Second Button">
         <Stack vertical={true}>
             <Stack spacing={'loose'} distribution="fillEvenly">
                 <Stack vertical={false} alignment={'center'}>
@@ -864,7 +877,7 @@ function WarningDesignComponent() {
         <Stack vertical={true}>
             <Stack.Item>{errorMessage}</Stack.Item>
             <Stack.Item>
-                <Stack spacing={'loose'} alignment={'center'}> 
+                <Stack spacing={'loose'} alignment={'center'}>
                     <TextContainer>
                         Image
                     </TextContainer>
@@ -887,7 +900,7 @@ function WarningDesignComponent() {
 
                 </Stack>
             </Stack.Item>
-            
+
             <Stack.Item>
                 <Stack>
                     <Stack.Item>
@@ -909,7 +922,7 @@ function WarningDesignComponent() {
                 </Stack>
 
             </Stack.Item>
-            
+
             <Stack.Item>
                 <TextField
                     label={'Container width'}
@@ -1199,8 +1212,8 @@ function WarningDesignComponent() {
     //#endregion
 
 
+    //#region UseEffect => Buttons style
     useEffect(() => {
-        //#region Buttons style
         var tempFirstButtonStyle = {};
         Object.assign(tempFirstButtonStyle, firstButtonStyle);
         tempFirstButtonStyle.backgroundColorHSB = firstButtonBgColorHSB;
@@ -1235,9 +1248,22 @@ function WarningDesignComponent() {
         tempButtonContainerStyle.rowGap = `${buttonsGap}px`;
 
         setButtonContainerStyle(tempButtonContainerStyle);
-        //#endregion
 
-        //#region Warning Popup Main container
+    }, [
+        buttonsWidth,
+        buttonsBorderRadius,
+        firstButtonFontColorHSB,
+        firstButtonBgColorHSB,
+        secondButtonBgColorHSB,
+        secondButtonFontColorHSB,
+        buttonContainerMarginBottom,
+        buttonsPaddingYAxis,
+        buttonsGap
+    ]);
+    //#endregion
+
+    //#region UseEffect => Warning Popup Main container
+    useEffect(() => {
         var tempMainContainerStyle = {};
         Object.assign(tempMainContainerStyle, mainContainerStyle);
         tempMainContainerStyle.backgroundColorHSB = mainContainerBgColorHSB;
@@ -1254,9 +1280,14 @@ function WarningDesignComponent() {
         }
 
         setMainContainerStyle(tempMainContainerStyle);
-        //#endregion
+    }, [
+        mainContainerBgColorHSB,
+        mainContainerBorderRadius,
+        imageIsOnRight]);
+    //#endregion
 
-        //#region Image container including image style
+    //#region UseEffect => Image container including image style
+    useEffect(() => {
         var tempImageStyle = {};
         Object.assign(tempImageStyle, imageStyle);
         tempImageStyle.width = `${imageWidth}px`;
@@ -1265,7 +1296,6 @@ function WarningDesignComponent() {
 
         if (uploadedImageFiles.length > 0) {
             var uploadedFile = uploadedImageFiles.find(file => validImageTypes.indexOf(file.type) > 0);
-            // setImageSrc(readFileAsURL(uploadedFile));
             if (uploadedFile)
                 setImageSrc(window.URL.createObjectURL(uploadedFile));
         }
@@ -1274,16 +1304,21 @@ function WarningDesignComponent() {
         Object.assign(tempImageContainerStyle, imageContainerStyle);
         tempImageContainerStyle.width = `${imageContainerWidth}%`;
         setImageContainerStyle(tempImageContainerStyle);
-        //#endregion
 
-        //#region Image container warning message container style
         var tempImageMessageContainerStyle = {};
         Object.assign(tempImageMessageContainerStyle, imageLayoutMessageButtonsContainerStyle);
         tempImageMessageContainerStyle.width = `${100 - imageContainerWidth}%`;
         setImageLayoutMessageButtonsContainerStyle(tempImageMessageContainerStyle);
-        //#endregion
+    }, [
+        uploadedImageFiles,
+        imageHeight,
+        imageWidth,
+        imageContainerWidth
+    ]);
+    //#endregion
 
-        //#region Image container buttons style 
+    //#region UseEffect => Image container buttons style 
+    useEffect(() => {
         var tempImageContainerButtonContainerStyle = {};
         Object.assign(tempImageContainerButtonContainerStyle, imageContainerButtonContainerStyle);
         tempImageContainerButtonContainerStyle.columnGap = `${imageContainerButtonsGap}px`;
@@ -1317,8 +1352,21 @@ function WarningDesignComponent() {
 
         setImageFirstButtonStyle(tempImageContainerFirstButtonStyle);
         setImageSecondButtonStyle(tempImageContainerSecondButtonStyle);
-        //#endregion
+    }, [
+        imageContainerButtonsWidth,
+        imageContainerButtonsPaddingYAxis,
+        imageContainerButtonsBorderRadius,
+        imageContainerButtonsGap,
+        imageContainerButtonContainerMarginBottom,
+        imageContainerSecondButtonFontColorHSB,
+        imageContainerSecondButtonBgColorHSB,
+        imageContainerFirstButtonFontColorHSB,
+        imageContainerFirstButtonBgColorHSB,
+    ]);
+    //#endregion
 
+    //#region UseEffect =>  Header Bg and Font styles
+    useEffect(() => {
         //#region  Header Text Container Style
         var tempHeaderTextContainerStyle = {};
         Object.assign(tempHeaderTextContainerStyle, headerTextContainerStyle);
@@ -1326,8 +1374,21 @@ function WarningDesignComponent() {
         tempHeaderTextContainerStyle.color = hsbToHexColor(headerTextColorHSB);
         setHeaderTextContainerStyle(tempHeaderTextContainerStyle);
         //#endregion
+        //#region Header Color Styles
+        var tempHeaderStyle = {};
+        Object.assign(tempHeaderStyle, headerStyle);
+        tempHeaderStyle.backgroundColorHSB = headerBackgroundColorHSB;
+        tempHeaderStyle.backgroundColor = hsbToHexColor(headerBackgroundColorHSB);
+        setHeaderStyle(tempHeaderStyle);
+        //#endregion
+    }, [
+        headerTextColorHSB,
+        headerBackgroundColorHSB
+    ]);
+    //#endregion
 
-        //#region Header Image Style
+    //#region Header Image Style
+    useEffect(() => {
         var tempheaderImgStyle = {};
         Object.assign(tempheaderImgStyle, headerImgStyle);
         tempheaderImgStyle.width = `${headerImgWidth}px`
@@ -1339,47 +1400,12 @@ function WarningDesignComponent() {
             if (uploadedFile)
                 setHeaderImgSrc(window.URL.createObjectURL(uploadedFile));
         }
-        //#endregion
-
-        var tempHeaderStyle = {};
-        Object.assign(tempHeaderStyle, headerStyle);
-        tempHeaderStyle.backgroundColorHSB = headerBackgroundColorHSB;
-        tempHeaderStyle.backgroundColor = hsbToHexColor(headerBackgroundColorHSB);
-        setHeaderStyle(tempHeaderStyle);
     }, [
-        buttonsWidth,
-        buttonsBorderRadius,
-        firstButtonFontColorHSB,
-        firstButtonBgColorHSB,
-        secondButtonBgColorHSB,
-        secondButtonFontColorHSB,
-        buttonContainerMarginBottom,
-        buttonsPaddingYAxis,
-        mainContainerBgColorHSB,
-        mainContainerBorderRadius,
-        buttonsGap,
-
-        uploadedImageFiles,
-        imageIsOnRight,
-        imageHeight,
-        imageWidth,
-        imageContainerWidth,
-        imageContainerButtonsWidth,
-        imageContainerButtonsPaddingYAxis,
-        imageContainerButtonsBorderRadius,
-        imageContainerButtonsGap,
-        imageContainerButtonContainerMarginBottom,
-        imageContainerSecondButtonFontColorHSB,
-        imageContainerSecondButtonBgColorHSB,
-        imageContainerFirstButtonFontColorHSB,
-        imageContainerFirstButtonBgColorHSB,
-
-        headerTextColorHSB,
         headerImgWidth,
         headerImgHeight,
         headerUploadedImageFiles,
-        headerBackgroundColorHSB
     ]);
+    //#endregion
 
     return (
         <Stack spacing={'extraTight'} distribution={'fillEvenly'}>
@@ -1427,7 +1453,7 @@ function WarningDesignComponent() {
                                 <Stack.Item fill={false} >
                                     <label style={{ fontSize: '1.6rem', fontWeight: '400' }}>
                                         Layout:
-                                        </label>
+                                    </label>
                                 </Stack.Item>
                                 <Stack.Item fill={false}>
                                     <div style={{
@@ -1462,7 +1488,7 @@ function WarningDesignComponent() {
                 </div>
             </Stack.Item>
         </Stack >
-    )
+    );
 
 
 }
