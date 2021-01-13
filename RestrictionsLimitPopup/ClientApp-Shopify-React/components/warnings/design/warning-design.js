@@ -1,8 +1,9 @@
 import { Banner, Button, Card, Checkbox, ChoiceList, ColorPicker, DropZone, hsbToHex, List, Popover, Scrollable, Stack, TextContainer, TextField, Thumbnail } from '@shopify/polaris';
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { NoteMinor } from '@shopify/polaris-icons';
 import WarningLayouts from '../../../models/PopupDesignStyle';
 import WarningDesignPrototypeComponent from './design-prototype';
+import { useContainerDimensions } from '../../shared/window-resize-dimension';
 
 function WarningDesignComponent() {
 
@@ -737,7 +738,7 @@ function WarningDesignComponent() {
         );
     };
     const buttonContainerMarkup = (<Card.Section title="Button styles">
-        <Stack spacing={'loose'} distribution="equalSpacing">
+        <Stack>
             <Stack.Item fill={false}>
                 <TextField
                     label="Width"
@@ -764,7 +765,7 @@ function WarningDesignComponent() {
 
         <br />
 
-        <Stack spacing={'loose'} distribution="fillEvenly">
+        <Stack >
             <Stack.Item fill={false} >
                 <TextField
                     label="Border radius"
@@ -789,7 +790,7 @@ function WarningDesignComponent() {
 
     const firstButtonMarkup = (<Card.Section title={`${layoutSelectedIndex !== 1 ? 'First' : 'Selected'} Button`}>
         <Stack vertical={true}>
-            <Stack spacing={'loose'} distribution="fillEvenly">
+            <Stack >
                 <Stack vertical={false} alignment={'center'}>
                     <TextContainer>
                         Background:
@@ -832,7 +833,7 @@ function WarningDesignComponent() {
 
     const secondButtonMarkup = layoutSelectedIndex !== 1 && (<Card.Section title="Second Button">
         <Stack vertical={true}>
-            <Stack spacing={'loose'} distribution="fillEvenly">
+            <Stack >
                 <Stack vertical={false} alignment={'center'}>
                     <TextContainer>
                         Background:
@@ -877,7 +878,7 @@ function WarningDesignComponent() {
         <Stack vertical={true}>
             <Stack.Item>{errorMessage}</Stack.Item>
             <Stack.Item>
-                <Stack spacing={'loose'} alignment={'center'}>
+                <Stack alignment={'center'}>
                     <TextContainer>
                         Image
                     </TextContainer>
@@ -957,7 +958,7 @@ function WarningDesignComponent() {
     };
 
     const imageContainerButtonContainerMarkup = (<Card.Section title="Button styles">
-        <Stack spacing={'loose'} distribution="fillEvenly">
+        <Stack>
             <Stack.Item fill={false}>
                 <TextField
                     label="Width"
@@ -984,7 +985,7 @@ function WarningDesignComponent() {
 
         <br />
 
-        <Stack spacing={'loose'} distribution="fillEvenly">
+        <Stack >
             <Stack.Item fill={false} >
                 <TextField
                     label="Border radius"
@@ -1009,7 +1010,7 @@ function WarningDesignComponent() {
 
     const imageContainerFirstBtnMarkup = (<Card.Section title="First Button">
         <Stack vertical={true}>
-            <Stack spacing={'loose'} distribution="fillEvenly">
+            <Stack >
                 <Stack vertical={false} alignment={'center'}>
                     <TextContainer>
                         Background:
@@ -1052,7 +1053,7 @@ function WarningDesignComponent() {
 
     const imageContainerSecondBtnMarkup = (<Card.Section title="Second Button">
         <Stack vertical={true}>
-            <Stack spacing={'loose'} distribution="fillEvenly">
+            <Stack >
                 <Stack vertical={false} alignment={'center'}>
                     <TextContainer>
                         Background:
@@ -1094,12 +1095,12 @@ function WarningDesignComponent() {
     </Card.Section>);
 
     const headerContainerMarkup = (<Card.Section title="Header">
-        <Stack vertical>
+        <Stack vertical spacing={'extraTight'}>
             <Stack.Item>
                 {headerErrorMessage}
             </Stack.Item>
             <Stack.Item>
-                <Stack spacing={'loose'} alignment={'center'}>
+                <Stack alignment={'center'}>
                     <Stack.Item>
                         <div style={{ width: 61, height: 61 }}>
                             <DropZone accept={acceptedImageTypes}
@@ -1132,9 +1133,8 @@ function WarningDesignComponent() {
                     </Stack.Item>
                 </Stack>
             </Stack.Item>
-            <br />
             <Stack.Item>
-                <Stack spacing={'loose'} distribution={'fillEvenly'}>
+                <Stack >
                     <TextContainer>
                         Header Background:
                     </TextContainer>
@@ -1162,7 +1162,6 @@ function WarningDesignComponent() {
                     </Popover>
                 </Stack>
             </Stack.Item>
-
             <TextField
                 label="Header text"
                 value={headerText}
@@ -1387,7 +1386,7 @@ function WarningDesignComponent() {
     ]);
     //#endregion
 
-    //#region Header Image Style
+    //#region UseEffect =>  Header Image Style
     useEffect(() => {
         var tempheaderImgStyle = {};
         Object.assign(tempheaderImgStyle, headerImgStyle);
@@ -1407,45 +1406,99 @@ function WarningDesignComponent() {
     ]);
     //#endregion
 
+
+    //#region UseEffect => Prototype and Designer Settings Width setup
+    const mainDesignerComponentRef = useRef(null);
+    const [designerWidth, setDesignerWidth] = useState({
+        width: 0,
+        height: 0
+    });
+    const [stackIsVertical, setStackIsVertical] = useState(false);
+
+    const getDimensions = (componentRef) => {
+        return {
+            width: componentRef.current.offsetWidth,
+            height: componentRef.current.offsetHeight
+        };
+    };
+
+    const configurePrototypeDesignerWidth = useCallback(
+        () => {
+            var mainDesignerContainerWidth = (getDimensions(mainDesignerComponentRef).width - 10);
+            var tempDesignerWidth = mainDesignerContainerWidth / 2;
+            if (tempDesignerWidth < 360) {
+                tempDesignerWidth = mainDesignerContainerWidth;
+                setStackIsVertical(true);
+            } else {
+                tempDesignerWidth = mainDesignerContainerWidth / 2;
+                setStackIsVertical(false);
+            }
+            setDesignerWidth(tempDesignerWidth);
+        },
+        [],
+    )
+
+    const handleResize = () => {
+        configurePrototypeDesignerWidth();
+        // setMainDesignerContainerDimension(getDimensions(mainDesignerComponentRef));
+    };
+
+    useEffect(() => {
+        if (mainDesignerComponentRef.current) {
+            configurePrototypeDesignerWidth();
+
+            window.addEventListener("resize", handleResize)
+
+            return () => {
+                window.removeEventListener("resize", handleResize)
+            }
+        }
+    }, [mainDesignerComponentRef])
+    //#endregion
+
     return (
-        <Stack spacing={'extraTight'} distribution={'fillEvenly'}>
-            <WarningDesignPrototypeComponent
-                style={mainContainerStyle}
+        <div ref={mainDesignerComponentRef}>
+            <Stack spacing={'extraTight'} vertical={stackIsVertical}>
+                <div style={{ width: `${designerWidth}px`, display: 'flex', justifyContent: 'center' }}>
+                    <WarningDesignPrototypeComponent
+                        style={mainContainerStyle}
 
-                headerStyle={headerStyle}
-                headerImgSrc={headerImgSrc}
-                headerImgStyle={headerImgStyle}
-                headerText={headerText}
-                headerTextContainerStyle={headerTextContainerStyle}
+                        headerStyle={headerStyle}
+                        headerImgSrc={headerImgSrc}
+                        headerImgStyle={headerImgStyle}
+                        headerText={headerText}
+                        headerTextContainerStyle={headerTextContainerStyle}
 
-                buttonContainerStyle={buttonContainerStyle}
-                firstButtonClick={firstButtonClick}
-                firstButtonText={firstButtonText}
-                firstButtonStyle={firstButtonStyle}
+                        buttonContainerStyle={buttonContainerStyle}
+                        firstButtonClick={firstButtonClick}
+                        firstButtonText={firstButtonText}
+                        firstButtonStyle={firstButtonStyle}
 
-                secondButtonClick={secondButtonClick}
-                secondButtonText={secondButtonText}
-                secondButtonStyle={secondButtonStyle}
+                        secondButtonClick={secondButtonClick}
+                        secondButtonText={secondButtonText}
+                        secondButtonStyle={secondButtonStyle}
 
-                warningMessage={warningMessage}
-                warningMessageStyle={warningMessageStyle}
+                        warningMessage={warningMessage}
+                        warningMessageStyle={warningMessageStyle}
 
-                imageContainerStyle={imageContainerStyle}
-                image_src={imageSrc}
-                image_style={imageStyle}
-                imageLayoutMsgButtonsContainerStyle={imageLayoutMessageButtonsContainerStyle}
-                imageContainerWarningMessageStyle={imageContainerWarningMessageStyle}
-                imageButtonContainerStyle={imageContainerButtonContainerStyle}
-                imageFirstButtonStyle={imageFirstButtonStyle}
-                imageSecondButtonStyle={imageSecondButtonStyle}
+                        imageContainerStyle={imageContainerStyle}
+                        image_src={imageSrc}
+                        image_style={imageStyle}
+                        imageLayoutMsgButtonsContainerStyle={imageLayoutMessageButtonsContainerStyle}
+                        imageContainerWarningMessageStyle={imageContainerWarningMessageStyle}
+                        imageButtonContainerStyle={imageContainerButtonContainerStyle}
+                        imageFirstButtonStyle={imageFirstButtonStyle}
+                        imageSecondButtonStyle={imageSecondButtonStyle}
 
-                activeContainerStyle={showContainerStyle}
-            />
-            <Stack.Item fill={false}>
+                        activeContainerStyle={showContainerStyle} />
+                </div>
                 <div style={{
-                    width: 'inherit',
-                    height: '364px'
+                    width: `${designerWidth}px`, 
+                    display: 'flex', 
+                    justifyContent: 'center',
+                    marginTop: '0.6em'
                 }}>
+                    {/* <Stack.Item fill={false}> */}
                     <Scrollable shadow height={'364px'}>
                         {/* <Card.Section> */}
                         <Stack vertical>
@@ -1486,8 +1539,9 @@ function WarningDesignComponent() {
                         {/* </Card.Section> */}
                     </Scrollable>
                 </div>
-            </Stack.Item>
-        </Stack >
+                {/* </Stack.Item> */}
+            </Stack>
+        </div>
     );
 
 
