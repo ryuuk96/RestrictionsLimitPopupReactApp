@@ -31,7 +31,8 @@ class MyApp extends App {
                 <Head>
                     <title>{this.brandName}</title>
                     <meta charSet="utf-8" />
-                    <script src="../node_modules/tinymce/tinymce.min.js"></script>
+                    {/* <script src="../node_modules/tinymce/tinymce.min.js"></script> */}
+                    <script src={`https://cdn.tiny.cloud/1/${TINYMCE_API_KEY}/tinymce/5/tinymce.min.js`}></script>
                 </Head>
                 <Provider config={config}>
                     <AppProvider i18n={translations}>
