@@ -18,12 +18,11 @@
     "@shopify/koa-shopify-graphql-proxy": "^4.0.4",
     "@shopify/koa-shopify-webhooks": "^2.5.2",
     "@shopify/polaris": "^5.10.1",
-    "@tinymce/tinymce-react": "^3.8.4",
+    "@tinymce/tinymce-react": "^3.9.0",
     "@zeit/next-css": "^1.0.1",
     "apollo-boost": "^0.4.9",
     "axios": "^0.21.0",
     "dotenv": "^8.2.0",
-    "draft-js": "^0.11.7",
     "graphql": "^15.4.0",
     "isomorphic-fetch": "^3.0.0",
     "js-cookie": "^2.2.1",
@@ -35,8 +34,9 @@
     "react": "^17.0.1",
     "react-apollo": "^3.1.5",
     "react-dom": "^17.0.1",
-    "react-draft-wysiwyg": "^1.14.5",
-    "store-js": "^2.0.4"
+    "react-html-parser": "^2.0.2",
+    "store-js": "^2.0.4",
+    "tinymce": "^5.6.2"
   },
   "devDependencies": {
     "file-loader": "^6.2.0"

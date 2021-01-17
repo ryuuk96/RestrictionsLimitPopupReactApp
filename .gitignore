@@ -25,3 +25,4 @@
 /RestrictionsLimitPopup.Common/obj
 /RestrictionsLimitPopup.ShopifyData/obj
 RestrictionsLimitPopup/ClientApp-Shopify-React/components/shared/window-resize-dimension.js
+RestrictionsLimitPopup/ClientApp-Shopify-React/public/assets/configs/appConfig.txt

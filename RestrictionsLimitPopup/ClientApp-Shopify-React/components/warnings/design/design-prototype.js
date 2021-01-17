@@ -1,7 +1,8 @@
 import { Button, Card } from '@shopify/polaris'
 import React, { useCallback, useEffect, useState } from 'react'
-import '../../../assets/styles/popup-prototype.css';
-// import PlaceHolder from "../../../assets/images/graphic_uploader_placeholder.png";
+import '../../../public/assets/styles/popup-prototype.css';
+
+import ReactHtmlParser from "react-html-parser";
 
 function WarningDesignPrototypeComponent(props) {
 
@@ -15,8 +16,7 @@ function WarningDesignPrototypeComponent(props) {
         headerTextContainerStyle,
 
         buttonContainerStyle,
-        firstButtonClick,
-        secondButtonClick,
+
         firstButtonText,
         secondButtonText,
         firstButtonStyle,
@@ -62,12 +62,10 @@ function WarningDesignPrototypeComponent(props) {
                 else if (classList[0] === 'firstBtn') {
                     setActiveContainer('FIRST_BTN');
                     activeContainerStyle('FIRST_BTN');
-                    firstButtonClick();
                 }
                 else if (classList[0] === 'secondBtn') {
                     setActiveContainer('SECOND_BTN');
                     activeContainerStyle('SECOND_BTN');
-                    secondButtonClick();
                 }
                 else if (classList[0] === 'imageContainer-image') {
                     setActiveContainer('IMAGE');
@@ -101,6 +99,18 @@ function WarningDesignPrototypeComponent(props) {
         [],
     );
 
+    const getReactHtml = useCallback(
+        (content, tag) => {
+            var htmlContent = ReactHtmlParser(content);
+
+            return (
+            <div onClick={() => { setActiveContainer(tag); activeContainerStyle(tag); }}>
+                {htmlContent}
+            </div>);
+        },
+        [],
+    );
+
     return (
         <div style={{
             width: 'inherit',
@@ -121,25 +131,25 @@ function WarningDesignPrototypeComponent(props) {
                     style={headerStyle} onClick={handleContainerClick}>
                     <img src={headerImgSrc} style={headerImgStyle} className={'header design-container'} />
                     <div style={headerTextContainerStyle} className={'header design-container'} >
-                        {headerText}
+                        {getReactHtml(headerText, 'HEADER')}
                     </div>
                 </div>
 
                 <div className={`warningMessageContainer design-container ${activeContainer === 'MESSAGE' ? 'design-container-active' : ''}`}
                     style={warningMessageStyle} onClick={handleContainerClick}>
-                    {warningMessage}
+                    {getReactHtml(warningMessage, 'MESSAGE')}
                 </div>
 
                 <div className={`buttonContainer design-container ${activeContainer === 'BUTTON_CONTAINER' ? 'design-container-active' : ''}`}
                     style={buttonContainerStyle} onClick={handleContainerClick}>
 
                     <button className={`firstBtn design-container ${activeContainer === 'FIRST_BTN' ? 'design-container-active' : ''}`}
-                        onClick={firstButtonClick} style={firstButtonStyle} onClick={handleContainerClick}>
+                        style={firstButtonStyle} onClick={handleContainerClick}>
                         {firstButtonText}
                     </button>
 
                     <button className={`secondBtn design-container ${activeContainer === 'SECOND_BTN' ? 'design-container-active' : ''}`}
-                        onClick={secondButtonClick} style={secondButtonStyle} onClick={handleContainerClick}>
+                        style={secondButtonStyle} onClick={handleContainerClick}>
                         {secondButtonText}
                     </button>
                 </div>
@@ -152,18 +162,18 @@ function WarningDesignPrototypeComponent(props) {
                 <div className={`imageContainer-mainContainer`} style={imageLayoutMsgButtonsContainerStyle}>
                     <div className={`imageContainer-warningMessageContainer design-container ${activeContainer === 'IMAGE_MSG' ? 'design-container-active' : ''}`}
                         style={imageContainerWarningMessageStyle} onClick={handleContainerClick}>
-                        {warningMessage}
+                        {getReactHtml(warningMessage, 'IMAGE_MSG')}
                     </div>
 
                     <div className={`imageContainer-buttonContainer design-container ${activeContainer === 'IMAGE_BUTTON_CONTAINER' ? 'design-container-active' : ''}`}
                         style={imageButtonContainerStyle} onClick={handleContainerClick}>
                         <button className={`imageContainer-firstBtn design-container ${activeContainer === 'IMAGE_FIRST_BTN' ? 'design-container-active' : ''}`}
-                            onClick={firstButtonClick} style={imageFirstButtonStyle} onClick={handleContainerClick}>
+                            style={imageFirstButtonStyle} onClick={handleContainerClick}>
                             {firstButtonText}
                         </button>
 
                         <button className={`imageContainer-secondBtn design-container ${activeContainer === 'IMAGE_SECOND_BTN' ? 'design-container-active' : ''}`}
-                            onClick={secondButtonClick} style={imageSecondButtonStyle} onClick={handleContainerClick}>
+                            style={imageSecondButtonStyle} onClick={handleContainerClick}>
                             {secondButtonText}
                         </button>
                     </div>

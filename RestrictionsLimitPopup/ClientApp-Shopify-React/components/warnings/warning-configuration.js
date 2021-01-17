@@ -104,6 +104,7 @@ function WarningConfigurationComponent(props) {
         },
         []
     );
+    
     const selectedDateString = !disableEndDate ?
         `${selectedDates.start.getDate()} ${Months[selectedDates.start.getMonth()]}, ${selectedDates.start.getFullYear()} - ${selectedDates.end.getDate()} ${Months[selectedDates.end.getMonth()]}, ${selectedDates.end.getFullYear()}` :
         `Starts from: ${selectedDates.start.getDate()} ${Months[selectedDates.start.getMonth()]}, ${selectedDates.start.getFullYear()}`;

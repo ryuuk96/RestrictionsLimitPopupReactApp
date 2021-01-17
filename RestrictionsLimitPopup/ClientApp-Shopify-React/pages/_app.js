@@ -17,7 +17,7 @@ import Cookies from 'js-cookie';
  * And also to setup translations
  */
 class MyApp extends App {
-    langjson = require("../assets/language/english.json")
+    langjson = require("../public/assets/language/english.json")
 
     brandName = this.langjson.Application.Brand;
 
@@ -31,6 +31,7 @@ class MyApp extends App {
                 <Head>
                     <title>{this.brandName}</title>
                     <meta charSet="utf-8" />
+                    <script src="../node_modules/tinymce/tinymce.min.js"></script>
                 </Head>
                 <Provider config={config}>
                     <AppProvider i18n={translations}>

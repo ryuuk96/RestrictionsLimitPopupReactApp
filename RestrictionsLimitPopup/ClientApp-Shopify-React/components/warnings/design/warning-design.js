@@ -1,26 +1,11 @@
-import { Banner, Button, Card, Checkbox, ChoiceList, ColorPicker, DropZone, hsbToHex, List, Popover, Scrollable, Stack, TextContainer, TextField, Thumbnail } from '@shopify/polaris';
+import { Banner, Button, Card, Checkbox, ChoiceList, ColorPicker, DropZone, hsbToHex, List, Popover, Scrollable, Stack, Subheading, TextContainer, TextField, Thumbnail } from '@shopify/polaris';
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { NoteMinor } from '@shopify/polaris-icons';
 import WarningLayouts from '../../../models/PopupDesignStyle';
 import WarningDesignPrototypeComponent from './design-prototype';
-import { useContainerDimensions } from '../../shared/window-resize-dimension';
+import RichTextEditor from '../../shared/text-editor';
 
 function WarningDesignComponent() {
-
-
-    const firstButtonClick = useCallback(
-        () => {
-            console.log(`warning-design.js => First button clicked`);
-        },
-        [],
-    );
-    const secondButtonClick = useCallback(
-        () => {
-            console.log(`warning-design.js => second button clicked`);
-        },
-        [],
-    );
-
     const hsbToHexColor = (hsb) => hsbToHex(hsb);
 
     //#region Designer Layout Settings
@@ -717,10 +702,7 @@ function WarningDesignComponent() {
     </Card.Section>);
 
     const messageContainerMarkup = (<Card.Section title="Warning message">
-        <TextField
-            label=" "
-            value={warningMessage}
-            onChange={handleWarningMessageChange} />
+        <RichTextEditor value={warningMessage} onChange={handleWarningMessageChange} />
     </Card.Section>);
 
     const buttonGapTextFieldMarkup = () => {
@@ -936,10 +918,7 @@ function WarningDesignComponent() {
     </Card.Section>);
 
     const imageContainerWarningMsgContainerMarkup = (<Card.Section title="Warning message">
-        <TextField
-            label=" "
-            value={warningMessage}
-            onChange={handleWarningMessageChange} />
+        <RichTextEditor value={warningMessage} onChange={handleWarningMessageChange} />
     </Card.Section>);
 
     const imageContainerButtonsGapTextFieldMarkup = () => {
@@ -1133,6 +1112,7 @@ function WarningDesignComponent() {
                     </Stack.Item>
                 </Stack>
             </Stack.Item>
+            <br/>
             <Stack.Item>
                 <Stack >
                     <TextContainer>
@@ -1162,10 +1142,11 @@ function WarningDesignComponent() {
                     </Popover>
                 </Stack>
             </Stack.Item>
-            <TextField
-                label="Header text"
-                value={headerText}
-                onChange={(newValue) => setHeaderText(newValue)} />
+
+            <TextContainer>
+                <Subheading>Header text</Subheading>
+            </TextContainer>
+            <RichTextEditor value={headerText} onChange={setHeaderText} />
 
         </Stack>
     </Card.Section>);
@@ -1440,7 +1421,6 @@ function WarningDesignComponent() {
 
     const handleResize = () => {
         configurePrototypeDesignerWidth();
-        // setMainDesignerContainerDimension(getDimensions(mainDesignerComponentRef));
     };
 
     useEffect(() => {
@@ -1470,11 +1450,9 @@ function WarningDesignComponent() {
                         headerTextContainerStyle={headerTextContainerStyle}
 
                         buttonContainerStyle={buttonContainerStyle}
-                        firstButtonClick={firstButtonClick}
                         firstButtonText={firstButtonText}
                         firstButtonStyle={firstButtonStyle}
 
-                        secondButtonClick={secondButtonClick}
                         secondButtonText={secondButtonText}
                         secondButtonStyle={secondButtonStyle}
 
@@ -1493,51 +1471,50 @@ function WarningDesignComponent() {
                         activeContainerStyle={showContainerStyle} />
                 </div>
                 <div style={{
-                    width: `${designerWidth}px`, 
-                    display: 'flex', 
-                    justifyContent: 'center',
-                    marginTop: '0.6em'
+                    width: `${designerWidth - 10}px`,
+                    display: 'flex',
+                    justifyContent: 'start',
+                    marginTop: '0.6em',
+                    marginLeft: '0.5em'
                 }}>
                     {/* <Stack.Item fill={false}> */}
-                    <Scrollable shadow height={'364px'}>
-                        {/* <Card.Section> */}
-                        <Stack vertical>
-                            <Stack alignment={'center'}>
-                                <Stack.Item fill={false} >
-                                    <label style={{ fontSize: '1.6rem', fontWeight: '400' }}>
-                                        Layout:
+                    {/* <Card.Section> */}
+                    <Stack vertical>
+                        <Stack alignment={'center'}>
+                            <Stack.Item fill={false} >
+                                <label style={{ fontSize: '1.6rem', fontWeight: '400' }}>
+                                    &nbsp;&nbsp;Layout:
                                     </label>
-                                </Stack.Item>
-                                <Stack.Item fill={false}>
-                                    <div style={{
-                                        display: 'flex',
-                                        flexDirection: 'row'
-                                    }}>
-                                        <div style={{ marginRight: '1em' }}>
-                                            {
-                                                warningDesignLayouts[layoutSelectedIndex].thumbnailSvg
-                                            }
-                                        </div>
-                                        <Popover
-                                            active={layoutSelectionPopoverActive}
-                                            activator={layoutSelectionPopoverActivator}
-                                            onClose={() => setLayoutSelectionPopoverActive(false)}
-                                            fluidContent={true}>
-                                            {popupLayoutsMarkup()}
-                                        </Popover>
+                            </Stack.Item>
+                            <Stack.Item fill={false}>
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'row'
+                                }}>
+                                    <div style={{ marginRight: '1em' }}>
+                                        {
+                                            warningDesignLayouts[layoutSelectedIndex].thumbnailSvg
+                                        }
                                     </div>
-                                </Stack.Item>
-                            </Stack>
-
-                            <Card>
-
-                                {getHighlightedContainerConfiguration()}
-
-                            </Card>
-
+                                    <Popover
+                                        active={layoutSelectionPopoverActive}
+                                        activator={layoutSelectionPopoverActivator}
+                                        onClose={() => setLayoutSelectionPopoverActive(false)}
+                                        fluidContent={true}>
+                                        {popupLayoutsMarkup()}
+                                    </Popover>
+                                </div>
+                            </Stack.Item>
                         </Stack>
-                        {/* </Card.Section> */}
-                    </Scrollable>
+
+                        <Card>
+
+                            {getHighlightedContainerConfiguration()}
+
+                        </Card>
+
+                    </Stack>
+                    {/* </Card.Section> */}
                 </div>
                 {/* </Stack.Item> */}
             </Stack>
