@@ -1,6 +1,6 @@
 import React from 'react';
 import { Badge, Card, Layout, Page } from '@shopify/polaris';
-import { SaveMinor } from '@shopify/polaris-icons';
+import { SaveMinor, DeleteMajor, DuplicateMinor } from '@shopify/polaris-icons';
 import WarningDetailsComponent from '../components/warnings/warning-details';
 import WarningConfigurationComponent from '../components/warnings/warning-configuration';
 import WarningDesignComponent from '../components/warnings/design/warning-design';
@@ -56,11 +56,15 @@ export default function WarningDetail() {
             secondaryActions={[
                 {
                     content: 'Duplicate',
+                    icon: DuplicateMinor,
                     accessibilityLabel: 'Duplicate the current warning',
                     onAction: duplicateWarning,
                 },
                 {
                     content: 'Delete',
+                    outline: true,
+                    destructive: true,
+                    icon: DeleteMajor,
                     accessibilityLabel: 'Delete the current warning',
                     onAction: deleteWarning,
                 }

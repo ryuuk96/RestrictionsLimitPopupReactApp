@@ -4,6 +4,8 @@ import { NoteMinor } from '@shopify/polaris-icons';
 import WarningLayouts from '../../../models/PopupDesignStyle';
 import WarningDesignPrototypeComponent from './design-prototype';
 import RichTextEditor from '../../shared/text-editor';
+import ReactHtmlParser from "react-html-parser";
+
 
 function WarningDesignComponent() {
     const hsbToHexColor = (hsb) => hsbToHex(hsb);
@@ -105,7 +107,7 @@ function WarningDesignComponent() {
                                 <div style={{ cursor: 'pointer' }}
                                     key={index}
                                     onClick={() => handleSelectedLayout(index)}>
-                                    {layout.layoutSvg}
+                                    {ReactHtmlParser(layout.layoutSvg)}
                                 </div>
                             );
                         })
@@ -312,7 +314,7 @@ function WarningDesignComponent() {
 
     const errorMessage = hasError && (
         <Banner
-            title="The following images couldn’t be uploaded:"
+            title="Can only accept image file with size less than 20MB. The following images couldn’t be uploaded:"
             status="critical">
             <List type="bullet">
                 {rejectedFiles.map((file, index) => (
@@ -476,7 +478,7 @@ function WarningDesignComponent() {
 
     const headerErrorMessage = headerImageHasError && (
         <Banner
-            title="The following images couldn’t be uploaded:"
+            title="Can only accept image file with size less than 20MB. The following images couldn’t be uploaded:"
             status="critical">
             <List type="bullet">
                 {headerRejectedImageFiles.map((file, index) => (
@@ -1477,8 +1479,6 @@ function WarningDesignComponent() {
                     marginTop: '0.6em',
                     marginLeft: '0.5em'
                 }}>
-                    {/* <Stack.Item fill={false}> */}
-                    {/* <Card.Section> */}
                     <Stack vertical>
                         <Stack alignment={'center'}>
                             <Stack.Item fill={false} >
@@ -1492,9 +1492,7 @@ function WarningDesignComponent() {
                                     flexDirection: 'row'
                                 }}>
                                     <div style={{ marginRight: '1em' }}>
-                                        {
-                                            warningDesignLayouts[layoutSelectedIndex].thumbnailSvg
-                                        }
+                                        {ReactHtmlParser(warningDesignLayouts[layoutSelectedIndex].thumbnailSvg)}
                                     </div>
                                     <Popover
                                         active={layoutSelectionPopoverActive}
@@ -1514,9 +1512,7 @@ function WarningDesignComponent() {
                         </Card>
 
                     </Stack>
-                    {/* </Card.Section> */}
                 </div>
-                {/* </Stack.Item> */}
             </Stack>
         </div>
     );
