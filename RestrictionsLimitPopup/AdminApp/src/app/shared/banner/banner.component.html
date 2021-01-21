@@ -1,0 +1,18 @@
+<div *ngIf="currentNotification !== null"
+ class="bannerStyle user-sel-none" [ngClass]="{
+    'bg-danger': currentNotification.type === 'Danger',
+    'bg-info': currentNotification.type === 'Info',
+    'bg-warning': currentNotification.type === 'Warning'
+}">
+    <div></div>
+    <div class="text-button-container">
+        {{ currentNotification.text }}
+        <button *ngIf="currentNotification.buttonText" [class]="buttonClass"
+            (click)="routeTo(currentNotification.buttonUrl)">
+            {{ currentNotification.buttonText }}
+        </button>
+    </div>
+    <div class="close" data-dismiss="alert" aria-label="close">
+        <span aria-hidden="true">&times;</span>
+    </div>
+</div>

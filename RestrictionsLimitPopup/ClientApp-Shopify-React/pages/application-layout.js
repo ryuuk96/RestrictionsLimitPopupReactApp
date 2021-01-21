@@ -14,7 +14,7 @@ export default function ApplicationLayout() {
     const [toastActive, setToastActive] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isDirty, setIsDirty] = useState(false);
-    const [, setSearchActive] = useState(false);
+    const [searchActive, setSearchActive] = useState(false);
     const [searchValue, setSearchValue] = useState('');
     const [userMenuActive, setUserMenuActive] = useState(false);
     const [mobileNavigationActive, setMobileNavigationActive] = useState(false);
@@ -167,7 +167,7 @@ export default function ApplicationLayout() {
         <div style={{ height: '500px' }}>
             <Frame
                 topBar={topBarMarkup}
-                // navigation={navigationMarkup}
+                navigation={navigationMarkup}
                 showMobileNavigation={mobileNavigationActive}
                 onNavigationDismiss={toggleMobileNavigationActive}
                 skipToContentTarget={skipToContentRef.current} >

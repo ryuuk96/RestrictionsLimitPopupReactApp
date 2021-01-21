@@ -15,8 +15,12 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp-Popup\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp-Popup\**" />
+    <EmbeddedResource Remove="ClientApp-Popup\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp-Popup\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
@@ -188,7 +192,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp-Popup\" />
     <Folder Include="ClientApp-BigCommerce-React\" />
   </ItemGroup>
 

@@ -1,0 +1,14 @@
+{
+    "Common": {
+        "BrandName": "Warning popup"
+    },
+    "LandingPage": {
+        "Pricing": "Pricing",
+        "AboutUs": "About Us",
+        "PrivacyPolicy": "Privacy Policy",
+        "Terms&Conditions": "Terms & Conditions",
+        "Login": "Login",
+        "Register": "Register",
+        "Faq": "FAQ"
+    }
+}
