@@ -1,0 +1,8 @@
+D:\Projects\Shopify\RestrictionsLimitPopup\Common.DAL\bin\Debug\netcoreapp3.1\RestrictionsLimitPopup.DAL.deps.json
+D:\Projects\Shopify\RestrictionsLimitPopup\Common.DAL\bin\Debug\netcoreapp3.1\RestrictionsLimitPopup.DAL.dll
+D:\Projects\Shopify\RestrictionsLimitPopup\Common.DAL\obj\Debug\netcoreapp3.1\DAL.csprojAssemblyReference.cache
+D:\Projects\Shopify\RestrictionsLimitPopup\Common.DAL\obj\Debug\netcoreapp3.1\DAL.AssemblyInfoInputs.cache
+D:\Projects\Shopify\RestrictionsLimitPopup\Common.DAL\obj\Debug\netcoreapp3.1\DAL.AssemblyInfo.cs
+D:\Projects\Shopify\RestrictionsLimitPopup\Common.DAL\bin\Debug\netcoreapp3.1\RestrictionsLimitPopup.DAL.runtimeconfig.json
+D:\Projects\Shopify\RestrictionsLimitPopup\Common.DAL\bin\Debug\netcoreapp3.1\RestrictionsLimitPopup.DAL.runtimeconfig.dev.json
+D:\Projects\Shopify\RestrictionsLimitPopup\Common.DAL\obj\Debug\netcoreapp3.1\DAL.genruntimeconfig.cache

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RestrictionsLimitPopup.Common
+namespace RestrictionsLimitPopup.DAL.CustomerModels
 {
     public class BusinessCustomer
     {

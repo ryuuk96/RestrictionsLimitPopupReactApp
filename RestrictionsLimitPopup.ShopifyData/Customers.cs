@@ -1,5 +1,5 @@
 ﻿using System;
-using RestrictionsLimitPopup.Common;
+using RestrictionsLimitPopup.DAL.CustomerModels;
 
 namespace RestrictionsLimitPopup.ShopifyData
 {
