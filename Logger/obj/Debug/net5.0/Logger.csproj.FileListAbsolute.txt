@@ -1,0 +1,5 @@
+D:\Projects\Shopify\RestrictionsLimitPopup\Logger\obj\Debug\net5.0\Logger.csprojAssemblyReference.cache
+D:\Projects\Shopify\RestrictionsLimitPopup\Logger\obj\Debug\net5.0\Logger.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\Shopify\RestrictionsLimitPopup\Logger\obj\Debug\net5.0\Logger.AssemblyInfoInputs.cache
+D:\Projects\Shopify\RestrictionsLimitPopup\Logger\obj\Debug\net5.0\Logger.AssemblyInfo.cs
+D:\Projects\Shopify\RestrictionsLimitPopup\Logger\obj\Debug\net5.0\Logger.csproj.CoreCompileInputs.cache
