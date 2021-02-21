@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopifyData", "Restrictions
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "RestrictionsLimitPopup.Common\Common.csproj", "{302EA2FF-6BD8-4C85-8417-520174E94BF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "Common.DAL\DAL.csproj", "{5A02BFD3-B4FC-4085-8294-FA11A013BF77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "Common.DAL\DAL.csproj", "{5A02BFD3-B4FC-4085-8294-FA11A013BF77}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoConceptTest", "DemoConceptTest\DemoConceptTest.csproj", "{5156B287-8897-4269-8A49-B12C926CA959}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoRazorApplication", "DemoRazorApplication\DemoRazorApplication.csproj", "{A3AA0F10-ED10-4D88-B0EE-F3FBE64473C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{5A02BFD3-B4FC-4085-8294-FA11A013BF77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A02BFD3-B4FC-4085-8294-FA11A013BF77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A02BFD3-B4FC-4085-8294-FA11A013BF77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5156B287-8897-4269-8A49-B12C926CA959}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5156B287-8897-4269-8A49-B12C926CA959}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5156B287-8897-4269-8A49-B12C926CA959}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5156B287-8897-4269-8A49-B12C926CA959}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3AA0F10-ED10-4D88-B0EE-F3FBE64473C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3AA0F10-ED10-4D88-B0EE-F3FBE64473C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3AA0F10-ED10-4D88-B0EE-F3FBE64473C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3AA0F10-ED10-4D88-B0EE-F3FBE64473C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -29,3 +29,11 @@ RestrictionsLimitPopup/ClientApp-Shopify-React/public/assets/configs/appConfig.t
 /DemoConceptTest
 /LoggerOldCode
 /Scripts
+/.vscode
+/DemoRazorApplication
+/MultiLogger.Extensions
+/MultiLogger.Writers
+/MultiLogger.Tests
+Common.DAL/obj/DAL.csproj.nuget.dgspec.json
+Common.DAL/obj/project.assets.json
+Common.DAL/obj/DAL.csproj.nuget.dgspec.json

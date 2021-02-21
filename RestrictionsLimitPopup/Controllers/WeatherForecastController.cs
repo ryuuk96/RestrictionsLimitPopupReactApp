@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+
+using MultiLogger.Interfaces;
+using MultiLogger.Model;
 
 namespace RestrictionsLimitPopup.Controllers
 {
@@ -16,9 +18,9 @@ namespace RestrictionsLimitPopup.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<DetailedLogEntry> _logger;
 
-        public WeatherForecastController ( ILogger<WeatherForecastController> logger )
+        public WeatherForecastController ( ILogger<DetailedLogEntry> logger )
         {
             _logger = logger;
         }
