@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>ECommerceSPAWarningWidget.ShopifyServices</AssemblyName>
+    <RootNamespace>ECommerceSPAWarningWidget.ShopifyServices</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ECommerceSPAWarningWidget.Common\Common.csproj" />
+    <ProjectReference Include="..\ECommerceSPAWarningWidget.DAL\DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MultiLogger">
+      <HintPath>E:\.Net Demo Projects\LocalPckgs\net5.0\MultiLogger.dll</HintPath>
+    </Reference>
+    <Reference Include="Utilities.Extensions">
+      <HintPath>E:\.Net Demo Projects\LocalPckgs\net5.0\Utilities.Extensions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

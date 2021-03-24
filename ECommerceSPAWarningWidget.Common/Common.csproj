@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>ECommerceSPAWarningWidget.Common</AssemblyName>
+    <RootNamespace>ECommerceSPAWarningWidget.Common</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+    <PackageReference Include="System.Collections" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MultiLogger">
+      <HintPath>E:\.Net Demo Projects\LocalPckgs\net5.0\MultiLogger.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

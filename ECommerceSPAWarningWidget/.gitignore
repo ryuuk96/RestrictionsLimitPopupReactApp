@@ -230,12 +230,3 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
-
-# Application secrets
-ClientApp/utilities/appConfig.json
-ClientApp/.env
-ClientApp/node_modules
-/ECommerceSPAWarningWidget.DAL/Migrations
-/ECommerceSPAWarningWidget/ClientApp/.env
-/Resources
-/Scripts
