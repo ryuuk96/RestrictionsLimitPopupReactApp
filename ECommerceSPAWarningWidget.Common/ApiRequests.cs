@@ -29,19 +29,22 @@ namespace ECommerceSPAWarningWidget.Common
             httpClient = httpClientFactory.CreateClient();
             _logger = logger;
         }
-        public Task<HttpResponseMessage> GetPOSTResponse ( string baseAddress, string url, Dictionary<string, string> queryKeyValuePair, object postBody )
+        public Task<string> GetPOSTResponse ( string baseAddress, string url, Dictionary<string, string> queryKeyValuePair, object postBody )
         {
             _logger.Debug(Project, Actor, Component, "POST_API", "Send POST http call to {apiBaseAddress}", baseAddress);
+
+            httpClient.DefaultRequestHeaders.Clear();
             httpClient.BaseAddress = new Uri(baseAddress);
 
-
+            string requestQueryUrl = url;
             if (queryKeyValuePair!=null)
             {
-                string requestQueryUrl = QueryHelpers.AddQueryString(url, queryKeyValuePair);
-
-                return httpClient.PostAsJsonAsync(requestQueryUrl, postBody);
+                requestQueryUrl = QueryHelpers.AddQueryString(url, queryKeyValuePair);
             }
-            return httpClient.PostAsJsonAsync(url, postBody);
+            using var response = httpClient.PostAsJsonAsync(requestQueryUrl, postBody).Result;
+
+            response.EnsureSuccessStatusCode();
+            return response.Content.ReadAsStringAsync();
         }
     }
 }

@@ -49,7 +49,7 @@ namespace ECommerceSPAWarningWidget.ShopifyServices
 
         public async Task StoreShopAccessToken ( string shop, string authorizationCode )
         {
-            var shopifyAccessModel = await _shopifyApi.GetApiAccess(shop, authorizationCode);
+            var shopifyAccessModel = _shopifyApi.GetApiAccess(shop, authorizationCode);
             ShopifyApiAccess apiAccess = new()
             {
                 AccessSopeArray = shopifyAccessModel.AccessScopeArray,

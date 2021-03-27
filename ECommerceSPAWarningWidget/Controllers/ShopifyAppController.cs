@@ -43,7 +43,10 @@ namespace ECommerceSPAWarningWidget.Controllers
                 return Unauthorized("Request not successfully validated by the server");
             
             await _shopifyAuth.StoreShopAccessToken(shop, code);
-            string redirectUrl = _configuration["ApplicationSettings:ShopifyLandingPage"];
+            string redirectUrl = _configuration["Shopify:URL"];
+
+            // To load the application in embed mode
+            Response.Headers.Add(_configuration["Shopify:IFrameResponseAllowHeader"], "deny");
             return Redirect(redirectUrl);
         }
     }

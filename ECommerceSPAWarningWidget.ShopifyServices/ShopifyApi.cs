@@ -29,7 +29,7 @@ namespace ECommerceSPAWarningWidget.ShopifyServices
             _configuration = configuration;
             _logger = logger;
         }
-        public async Task<ShopifyAccessModel> GetApiAccess ( string shop, string authorizationCode )
+        public ShopifyAccessModel GetApiAccess ( string shop, string authorizationCode )
         {
             _logger.Debug(Project, Actor, Component, "GetAPIAccess", "Getting access tokens from shopify for shop {shopAddress}", shop);
             var postBody = new
@@ -39,11 +39,8 @@ namespace ECommerceSPAWarningWidget.ShopifyServices
                 code = authorizationCode
             };
             
-            //using var httpResponse = await _api.GetPOSTResponse(GetShopifyBaseAddress(shop), "/admin/oauth/access_token", null, postBody);
-            var response = await _api.GetPOSTResponse(GetShopifyBaseAddress(shop), "/admin/oauth/access_token", null, postBody);
-            response.EnsureSuccessStatusCode();
-           
-            var responseString = await response.Content.ReadAsStringAsync();
+            var responseString = _api.GetPOSTResponse(GetShopifyBaseAddress(shop), "/admin/oauth/access_token", null, postBody).Result;
+
             ShopifyAccessModel accessModel = JsonSerializer.Deserialize<ShopifyAccessModel>(responseString);
             accessModel.ApiResponse = responseString;
             return accessModel;
