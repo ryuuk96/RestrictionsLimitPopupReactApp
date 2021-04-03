@@ -1,17 +1,29 @@
-import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import '@shopify/polaris/dist/styles.css';
+import Cookies from 'js-cookie';
 
-const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
 
+function getShopFromUrl() {
+  var url = new URL(window.location.href);
+  console.log(`Index: ${window.location.href}`);
+  return url.searchParams.get('shop');
+}
+
+Cookies.set('shopOrigin', getShopFromUrl(), {
+  httpOnly: false,
+  secure: true,
+  sameSite: 'none'
+});
+
 ReactDOM.render(
-  <BrowserRouter basename={baseUrl}>
+  <div>
     <App />
-  </BrowserRouter>,
+  </div>
+  ,
   rootElement);
 
 registerServiceWorker();
