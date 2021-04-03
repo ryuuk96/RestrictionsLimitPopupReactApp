@@ -23,30 +23,32 @@ namespace ECommerceSPAWarningWidget.ShopifyServices
         private const string Actor = "SHOPIFY";
         private const string Component = "ShopifyApi";
 
-        public ShopifyApi ( IApiRequests apiService, IConfiguration configuration, ILogger<DetailedLogEntry> logger )
+        public ShopifyApi ( IApiRequests apiService,
+            IConfiguration configuration,
+            ILogger<DetailedLogEntry> logger )
         {
             _api = apiService;
             _configuration = configuration;
             _logger = logger;
         }
-        public ShopifyAccessModel GetApiAccess ( string shop, string authorizationCode )
+        public ShopifyAccessModel GetApiAccess ( string shopWebsite, string authorizationCode )
         {
-            _logger.Debug(Project, Actor, Component, "GetAPIAccess", "Getting access tokens from shopify for shop {shopAddress}", shop);
+            _logger.Debug(Project, Actor, Component, "GetAPIAccess", "Getting access tokens from shopify for shop {shopWebsite}", shopWebsite);
             var postBody = new
             {
                 client_id = _configuration["Shopify:ApiKey"],
                 client_secret = _configuration["Shopify:SecretApiKey"],
                 code = authorizationCode
             };
-            
-            var responseString = _api.GetPOSTResponse(GetShopifyBaseAddress(shop), "/admin/oauth/access_token", null, postBody).Result;
+
+            var responseString = _api.POST(GetShopifyBaseAddress(shopWebsite), "/admin/oauth/access_token", null, postBody).Result;
 
             ShopifyAccessModel accessModel = JsonSerializer.Deserialize<ShopifyAccessModel>(responseString);
             accessModel.ApiResponse = responseString;
             return accessModel;
         }
 
-        private string GetShopifyBaseAddress(string shop)
+        private string GetShopifyBaseAddress ( string shop )
         {
             return string.Format(BaseAddress, shop);
         }

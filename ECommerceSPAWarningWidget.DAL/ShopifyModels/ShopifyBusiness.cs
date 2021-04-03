@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 using ECommerceSPAWarningWidget.DAL.CommonModels;
 
@@ -15,5 +16,9 @@ namespace ECommerceSPAWarningWidget.DAL.ShopifyModels
         }
 
         public string Nonce { get; set; }
+
+        public string ShopifyApiAccessId { get; set; }
+        [ForeignKey("ShopifyApiAccessId")]
+        public virtual ShopifyApiAccess ShopifyApiAccess { get; set; }
     }
 }

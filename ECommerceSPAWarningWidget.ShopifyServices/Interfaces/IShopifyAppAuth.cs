@@ -4,12 +4,16 @@ namespace ECommerceSPAWarningWidget.ShopifyServices.Interfaces
 {
     public interface IShopifyAppAuth
     {
-        string GetRedirectUrl ( string shop, string callbackApiRoute, string[] scopes, string nonce );
-        string GetRedirectUrl ( string shop, string callbackApiRoute, string[] scopes, string nonce, string[] grantOptions );
-        bool ValidateShopInstall ( string shop, string hmac, string authorizationCode, string state, long timestamp );
-        string GetShopNonce ( string shop );
-        Task StoreShopNonce ( string shop, string nonce );
+        bool ValidateShopInstall ( string shopWebsite, string hmac, string authorizationCode, string state, long timestamp );
+        
+        string GetRedirectUrl ( string shopWebsite, string callbackApiRoute, string[] scopes, string nonce );
+        string GetRedirectUrl ( string shopWebsite, string callbackApiRoute, string[] scopes, string nonce, string[] grantOptions );
+        string GetShopNonce ( string shopWebsite );
+        string GetShopAccessToken ( string shopWebsite );
 
-        Task StoreShopAccessToken ( string shop, string authorizationCode );
+        Task StoreShopNonce ( string shopWebsite, string nonce );
+        Task StoreShopAccessToken ( string shopWebsite, string authorizationCode );
+        Task RegisterShop ( string shopWebsite );
+        Task UnegisterShop ( string shopWebsite );
     }
 }

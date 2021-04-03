@@ -6,6 +6,6 @@ namespace ECommerceSPAWarningWidget.ShopifyServices.Interfaces
 {
     public interface IShopifyApiService
     {
-        ShopifyAccessModel GetApiAccess ( string shop, string authorizationCode );
+        ShopifyAccessModel GetApiAccess ( string shopWebsite, string authorizationCode );
     }
 }

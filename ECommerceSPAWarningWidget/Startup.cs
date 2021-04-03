@@ -36,6 +36,13 @@ namespace ECommerceSPAWarningWidget
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices ( IServiceCollection services )
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CORSPolicy", builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
 
             services.AddControllersWithViews();
 
@@ -46,11 +53,12 @@ namespace ECommerceSPAWarningWidget
 
             #region DI
             // Shopify
+            services.AddScoped<IShopify, ShopifyService>();
             services.AddScoped<IShopifyAppAuth, ShopifyAppAuth>();
             services.AddScoped<IShopifyApiService, ShopifyApi>();
 
             // Common
-            services.AddSingleton<IApiRequests, ApiRequests>();
+            services.AddScoped<IApiRequests, ApiRequests>();
             #endregion
 
             // In production, the React files will be served from this directory
@@ -79,6 +87,8 @@ namespace ECommerceSPAWarningWidget
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+
+            app.UseCors("CORSPolicy");
 
             app.UseEndpoints(endpoints =>
             {
