@@ -12,6 +12,7 @@
         public const string ECommerceSPAWarningWidgetProject = "ECommerceSPAWarningWidget";
         public const string ShopifyServiceProject = "ShopifyService";
 
+        public const string AddOperation = "ADD";
         public const string ReadOperation = "READ";
         public const string WriteOperation = "WRITE";
         public const string UpdateOperation = "UPDATE";

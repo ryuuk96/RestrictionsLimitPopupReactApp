@@ -56,6 +56,7 @@ namespace ECommerceSPAWarningWidget
             services.AddScoped<IShopify, ShopifyService>();
             services.AddScoped<IShopifyAppAuth, ShopifyAppAuth>();
             services.AddScoped<IShopifyApiService, ShopifyApi>();
+            services.AddScoped<IShopifyShopWarning, ShopifyShopWarning>();
 
             // Common
             services.AddScoped<IApiRequests, ApiRequests>();

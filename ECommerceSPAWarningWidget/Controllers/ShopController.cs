@@ -1,11 +1,9 @@
 ﻿
 using System.Threading.Tasks;
-using System.Web;
 
-using ECommerceSPAWarningWidget.Common;
 using ECommerceSPAWarningWidget.Common.Interfaces;
-using ECommerceSPAWarningWidget.Common.Utilities;
 using ECommerceSPAWarningWidget.ShopifyServices.Interfaces;
+using ECommerceSPAWarningWidget.Utility.Interfaces;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -21,16 +19,19 @@ namespace ECommerceSPAWarningWidget.Controllers
         private readonly IApiRequests _apiRequest;
         private readonly ILogger<DetailedLogEntry> _logger;
         private readonly IShopifyAppAuth _shopifyAuth;
+        private readonly IShopifyAPIHelper _shopifyHelper;
         private readonly IConfiguration _configuration;
         private const string BaseAddress = "https://{0}";
 
         public ShopController ( IApiRequests apiRequests,
             ILogger<DetailedLogEntry> logger,
+            IShopifyAPIHelper shopifyAPIHelper,
             IShopifyAppAuth shopifyAppAuth,
             IConfiguration configuration )
         {
             _apiRequest = apiRequests;
             _logger = logger;
+            _shopifyHelper = shopifyAPIHelper;
             _shopifyAuth = shopifyAppAuth;
             _configuration = configuration;
         }
@@ -38,14 +39,9 @@ namespace ECommerceSPAWarningWidget.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> ShopDetails ( [FromHeader] string referer, [FromHeader] string cookie )
         {
-            if (!(cookie.Contains(".myshopify.com") || referer.Contains(".myshopify.com")))
-            {
-                _logger.Debug(ConstUtility.ECommerceSPAWarningWidgetProject, ConstUtility.ActorShopify, "ShopController", ConstUtility.GetOperation, "Shop origin was not provided in the header for the request to get shop details");
+            string shopWebsite = _shopifyHelper.ShopWebsiteFromHeader(cookie, referer);
+            if(!(shopWebsite.Length > 0))
                 return BadRequest("Shop origin not passed as part of the request");
-            }
-            string shopWebsite = cookie.Contains(".myshopify.com") ?
-                cookie.Replace("shopOrigin=", string.Empty) :
-                HttpUtility.ParseQueryString(referer).Get("shop");
 
             string accessToken = _shopifyAuth.GetShopAccessToken(shopWebsite);
             var queryValuePair = new System.Collections.Generic.Dictionary<string, string>() { { _configuration["Shopify:ApiRequestHeader"], accessToken } };
@@ -54,11 +50,6 @@ namespace ECommerceSPAWarningWidget.Controllers
             return Ok(shopDetailJson);
         }
 
-
-
-        private string GetShopifyBaseAddress ( string url )
-        {
-            return string.Format(BaseAddress, url);
-        }
+        private string GetShopifyBaseAddress ( string url ) => string.Format(BaseAddress, url);
     }
 }
