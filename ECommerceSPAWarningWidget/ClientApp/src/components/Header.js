@@ -54,7 +54,7 @@ function Header() {
             actions={userMenuActions}
             name={shopUserName}
             detail={shopUserName}
-            initials={shopUserName[0].toUpperCase()}
+            initials={shopUserInitials}
             open={userMenuActive}
             onToggle={toggleUserMenuState}
         />
