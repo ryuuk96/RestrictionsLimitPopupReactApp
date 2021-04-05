@@ -3,17 +3,13 @@ import { ActionList, AppProvider, Card, TopBar } from "@shopify/polaris";
 import Cookies from 'js-cookie';
 
 function Header() {
-
-  const defaultShopState = useRef({
-    shopUserName: "TechSoln007",
-    shopUserEmail: "tech.soln@gmail.com"
-  });
   const [searchActive, setSearchActive] = useState(false);
-  const [shopUserName, setShopUserName] = useState(defaultShopState.current.shopUserName);
+  const [shopUserName, setShopUserName] = useState("");
+  const [shopUserInitials, setShopUserInitials] = useState("");
   const [userMenuActive, setUserMenuActive] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [mobileNavigationActive, setMobileNavigationActive] = useState(false);
-
+  var gotShopDetails = false;
   const theme = {
     colors: {
       topBar: {
@@ -45,16 +41,24 @@ function Header() {
   /**
    * This will mean the right handside menu where we will show the customer name
    */
-  const userMenuMarkup = (
-    <TopBar.UserMenu
-      actions={userMenuActions}
-      name={shopUserName}
-      detail={shopUserName}
-      initials={shopUserName[0].toUpperCase()}
-      open={userMenuActive}
-      onToggle={toggleUserMenuState}
-    />
-  );
+
+  const getInitials = (name) => {
+    if (!name) return;
+    var namewords = name.split(" ");
+    if (namewords.length == 0)
+      return name.charAt(0);
+    return `${namewords[0].charAt(0).toUpperCase()}${namewords[1].charAt(0).toUpperCase()}`
+    };
+    const userMenuMarkup = (
+        <TopBar.UserMenu
+            actions={userMenuActions}
+            name={shopUserName}
+            detail={shopUserName}
+            initials={shopUserName[0].toUpperCase()}
+            open={userMenuActive}
+            onToggle={toggleUserMenuState}
+        />
+    );
 
 
   const handleSearchFieldChange = useCallback(
@@ -89,7 +93,6 @@ function Header() {
     },
     [],
   );
-
   const toggleMobileNavigationActive = useCallback(
     () => {
       setMobileNavigationActive((mobileNavigationActive) => !mobileNavigationActive);
@@ -99,16 +102,24 @@ function Header() {
 
   /** Get Shop related information */
   useEffect(() => {
-    getShopDetails();
+    if (!gotShopDetails)
+      getShopDetails();
   }, []);
 
-  const getShopDetails = async () => {
-    console.log(Cookies.get("shopOrigin"));
-    const response = await fetch('api/Shop/ShopDetails', {
+  const getShopDetails = () => {
+    fetch('api/Shop/ShopDetails', {
       headers: {
         'origin': Cookies.get("shopOrigin"),
       }
     })
+    .then(response => response.json())
+    .then(shopData => {
+      shopData = shopData.shop;
+      setShopUserName(shopData.shop_owner);
+      
+      const userInitials = getInitials(shopData.shop_owner);
+      setShopUserInitials(userInitials);
+    });
   };
 
   return (
