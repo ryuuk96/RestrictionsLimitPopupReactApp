@@ -5,6 +5,8 @@ using ECommerceSPAWarningWidget.Common.Interfaces;
 using ECommerceSPAWarningWidget.Installers;
 using ECommerceSPAWarningWidget.ShopifyServices;
 using ECommerceSPAWarningWidget.ShopifyServices.Interfaces;
+using ECommerceSPAWarningWidget.Utility;
+using ECommerceSPAWarningWidget.Utility.Interfaces;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -57,6 +59,7 @@ namespace ECommerceSPAWarningWidget
             services.AddScoped<IShopifyAppAuth, ShopifyAppAuth>();
             services.AddScoped<IShopifyApiService, ShopifyApi>();
             services.AddScoped<IShopifyShopWarning, ShopifyShopWarning>();
+            services.AddScoped<IShopifyAPIHelper, ShopifyAPIHelper>();
 
             // Common
             services.AddScoped<IApiRequests, ApiRequests>();

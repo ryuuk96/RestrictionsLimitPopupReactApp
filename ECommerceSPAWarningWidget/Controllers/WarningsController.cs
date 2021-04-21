@@ -26,7 +26,7 @@ namespace ECommerceSPAWarningWidget.Controllers
             _shopWarning = shopWarning;
         }
 
-        [HttpGet("[action]")]
+        [HttpGet]
         public IActionResult Warnings ( [FromHeader] string referer, [FromHeader] string cookie )
         {
             string shopWebsite = _shopifyHelper.ShopWebsiteFromHeader(cookie, referer);
@@ -36,7 +36,7 @@ namespace ECommerceSPAWarningWidget.Controllers
         }
 
         [HttpGet("[action]/{warning}")]
-        public IActionResult WarningDetail([FromHeader]string cookie, [FromHeader]string referer, [FromQuery]string warning)
+        public IActionResult Detail([FromHeader]string cookie, [FromHeader]string referer, [FromQuery]string warning)
         {
             string shopWebsite = _shopifyHelper.ShopWebsiteFromHeader(cookie, referer);
             if (string.IsNullOrWhiteSpace(shopWebsite))
@@ -63,7 +63,7 @@ namespace ECommerceSPAWarningWidget.Controllers
         }
 
         [HttpPost("[action]")]
-        public IActionResult AddWarning([FromBody]ShopifyWarning warning, [FromHeader] string cookie, [FromHeader]string referer)
+        public IActionResult Add([FromBody]ShopifyWarning warning, [FromHeader] string cookie, [FromHeader]string referer)
         {
             string shopWebsite = _shopifyHelper.ShopWebsiteFromHeader(cookie, referer);
             if (string.IsNullOrWhiteSpace(shopWebsite))

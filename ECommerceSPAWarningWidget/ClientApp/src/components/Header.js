@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { ActionList, AppProvider, Card, TopBar } from "@shopify/polaris";
 import Cookies from 'js-cookie';
 
@@ -45,20 +45,20 @@ function Header() {
   const getInitials = (name) => {
     if (!name) return;
     var namewords = name.split(" ");
-    if (namewords.length == 0)
+    if (namewords.length === 0)
       return name.charAt(0);
     return `${namewords[0].charAt(0).toUpperCase()}${namewords[1].charAt(0).toUpperCase()}`
-    };
-    const userMenuMarkup = (
-        <TopBar.UserMenu
-            actions={userMenuActions}
-            name={shopUserName}
-            detail={shopUserName}
-            initials={shopUserInitials}
-            open={userMenuActive}
-            onToggle={toggleUserMenuState}
-        />
-    );
+  };
+  const userMenuMarkup = (
+    <TopBar.UserMenu
+      actions={userMenuActions}
+      name={shopUserName}
+      detail={shopUserName}
+      initials={shopUserInitials}
+      open={userMenuActive}
+      onToggle={toggleUserMenuState}
+    />
+  );
 
 
   const handleSearchFieldChange = useCallback(
@@ -101,26 +101,30 @@ function Header() {
   );
 
   /** Get Shop related information */
-  useEffect(() => {
-    if (!gotShopDetails)
-      getShopDetails();
-  }, []);
-
   const getShopDetails = () => {
     fetch('api/Shop/ShopDetails', {
       headers: {
         'origin': Cookies.get("shopOrigin"),
       }
     })
-    .then(response => response.json())
-    .then(shopData => {
-      shopData = shopData.shop;
-      setShopUserName(shopData.shop_owner);
-      
-      const userInitials = getInitials(shopData.shop_owner);
-      setShopUserInitials(userInitials);
-    });
+      .then(response => response.json())
+      .then(shopData => {
+        console.log(shopData);
+        shopData = shopData.shop;
+        setShopUserName(shopData.shop_owner);
+
+        const userInitials = getInitials(shopData.shop_owner);
+        setShopUserInitials(userInitials);
+
+        gotShopDetails = true;
+      });
   };
+
+  useEffect(() => {
+    if (!gotShopDetails)
+      getShopDetails();
+  }, []);
+
 
   return (
     <div>
